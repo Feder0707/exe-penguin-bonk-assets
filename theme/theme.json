@@ -1,0 +1,286 @@
+{
+ "id": "penguin-bonk",
+ "name": "EXE Penguin Bonk",
+ "boxWord": "ice block",
+ "presenter": "penguinBonk",
+ "hint": "Type {cmd} to bonk the ice!",
+ "font": "Silkscreen",
+ "sets": [
+  {
+   "id": "snowday",
+   "name": "Snow Day"
+  },
+  {
+   "id": "igloo",
+   "name": "Cozy Igloo"
+  },
+  {
+   "id": "icesea",
+   "name": "Ice Sea"
+  },
+  {
+   "id": "aurora",
+   "name": "Aurora Court"
+  }
+ ],
+ "items": [
+  {
+   "id": "scarf",
+   "name": "Scarf Pip",
+   "set": "snowday",
+   "rarity": "common",
+   "img": "p_scarf.png",
+   "shinyImg": "p_scarf_shiny.png",
+   "xmasImg": "p_scarf_xmas.png"
+  },
+  {
+   "id": "sled",
+   "name": "Sled Pip",
+   "set": "snowday",
+   "rarity": "common",
+   "img": "p_sled.png",
+   "shinyImg": "p_sled_shiny.png",
+   "xmasImg": "p_sled_xmas.png"
+  },
+  {
+   "id": "snowball",
+   "name": "Snowball Pip",
+   "set": "snowday",
+   "rarity": "common",
+   "img": "p_snowball.png",
+   "shinyImg": "p_snowball_shiny.png",
+   "xmasImg": "p_snowball_xmas.png"
+  },
+  {
+   "id": "earmuff",
+   "name": "Earmuff Pip",
+   "set": "snowday",
+   "rarity": "common",
+   "img": "p_earmuff.png",
+   "shinyImg": "p_earmuff_shiny.png",
+   "xmasImg": "p_earmuff_xmas.png"
+  },
+  {
+   "id": "skater",
+   "name": "Ice Skater",
+   "set": "snowday",
+   "rarity": "rare",
+   "img": "p_skater.png",
+   "shinyImg": "p_skater_shiny.png",
+   "xmasImg": "p_skater_xmas.png"
+  },
+  {
+   "id": "snowman",
+   "name": "Snowman Pal",
+   "set": "snowday",
+   "rarity": "epic",
+   "img": "p_snowman.png",
+   "shinyImg": "p_snowman_shiny.png",
+   "xmasImg": "p_snowman_xmas.png"
+  },
+  {
+   "id": "cocoa",
+   "name": "Cocoa Pip",
+   "set": "igloo",
+   "rarity": "common",
+   "img": "p_cocoa.png",
+   "shinyImg": "p_cocoa_shiny.png",
+   "xmasImg": "p_cocoa_xmas.png"
+  },
+  {
+   "id": "blanket",
+   "name": "Blanket Pip",
+   "set": "igloo",
+   "rarity": "common",
+   "img": "p_blanket.png",
+   "shinyImg": "p_blanket_shiny.png",
+   "xmasImg": "p_blanket_xmas.png"
+  },
+  {
+   "id": "sleepy",
+   "name": "Sleepy Pip",
+   "set": "igloo",
+   "rarity": "common",
+   "img": "p_sleepy.png",
+   "shinyImg": "p_sleepy_shiny.png",
+   "xmasImg": "p_sleepy_xmas.png"
+  },
+  {
+   "id": "bookworm",
+   "name": "Bookworm",
+   "set": "igloo",
+   "rarity": "rare",
+   "img": "p_bookworm.png",
+   "shinyImg": "p_bookworm_shiny.png",
+   "xmasImg": "p_bookworm_xmas.png"
+  },
+  {
+   "id": "knitter",
+   "name": "Knitter",
+   "set": "igloo",
+   "rarity": "rare",
+   "img": "p_knitter.png",
+   "shinyImg": "p_knitter_shiny.png",
+   "xmasImg": "p_knitter_xmas.png"
+  },
+  {
+   "id": "chef",
+   "name": "Hearth Chef",
+   "set": "igloo",
+   "rarity": "epic",
+   "img": "p_chef.png",
+   "shinyImg": "p_chef_shiny.png",
+   "xmasImg": "p_chef_xmas.png"
+  },
+  {
+   "id": "fisher",
+   "name": "Fisher Pip",
+   "set": "icesea",
+   "rarity": "common",
+   "img": "p_fisher.png",
+   "shinyImg": "p_fisher_shiny.png",
+   "xmasImg": "p_fisher_xmas.png"
+  },
+  {
+   "id": "diver",
+   "name": "Diver Pip",
+   "set": "icesea",
+   "rarity": "common",
+   "img": "p_diver.png",
+   "shinyImg": "p_diver_shiny.png",
+   "xmasImg": "p_diver_xmas.png"
+  },
+  {
+   "id": "surfer",
+   "name": "Iceberg Surfer",
+   "set": "icesea",
+   "rarity": "rare",
+   "img": "p_surfer.png",
+   "shinyImg": "p_surfer_shiny.png",
+   "xmasImg": "p_surfer_xmas.png"
+  },
+  {
+   "id": "seal",
+   "name": "Seal Buddy",
+   "set": "icesea",
+   "rarity": "rare",
+   "img": "p_seal.png",
+   "shinyImg": "p_seal_shiny.png",
+   "xmasImg": "p_seal_xmas.png"
+  },
+  {
+   "id": "captain",
+   "name": "Sea Captain",
+   "set": "icesea",
+   "rarity": "epic",
+   "img": "p_captain.png",
+   "shinyImg": "p_captain_shiny.png",
+   "xmasImg": "p_captain_xmas.png"
+  },
+  {
+   "id": "narwhal",
+   "name": "Narwhal Rider",
+   "set": "icesea",
+   "rarity": "legendary",
+   "img": "p_narwhal.png",
+   "shinyImg": "p_narwhal_shiny.png",
+   "xmasImg": "p_narwhal_xmas.png"
+  },
+  {
+   "id": "lantern",
+   "name": "Lantern Pip",
+   "set": "aurora",
+   "rarity": "common",
+   "img": "p_lantern.png",
+   "shinyImg": "p_lantern_shiny.png",
+   "xmasImg": "p_lantern_xmas.png"
+  },
+  {
+   "id": "herald",
+   "name": "Herald Pip",
+   "set": "aurora",
+   "rarity": "common",
+   "img": "p_herald.png",
+   "shinyImg": "p_herald_shiny.png",
+   "xmasImg": "p_herald_xmas.png"
+  },
+  {
+   "id": "knight",
+   "name": "Ice Knight",
+   "set": "aurora",
+   "rarity": "rare",
+   "img": "p_knight.png",
+   "shinyImg": "p_knight_shiny.png",
+   "xmasImg": "p_knight_xmas.png"
+  },
+  {
+   "id": "king",
+   "name": "Penguin King",
+   "set": "aurora",
+   "rarity": "legendary",
+   "img": "p_king.png",
+   "shinyImg": "p_king_shiny.png",
+   "xmasImg": "p_king_xmas.png"
+  },
+  {
+   "id": "queen",
+   "name": "Snow Queen",
+   "set": "aurora",
+   "rarity": "legendary",
+   "img": "p_queen.png",
+   "shinyImg": "p_queen_shiny.png",
+   "xmasImg": "p_queen_xmas.png"
+  },
+  {
+   "id": "emperor",
+   "name": "Aurora Emperor",
+   "set": "aurora",
+   "rarity": "mythic",
+   "img": "p_emperor.png",
+   "shinyImg": "p_emperor_shiny.png",
+   "xmasImg": "p_emperor_xmas.png"
+  }
+ ],
+ "words": {
+  "currency": "fish",
+  "box": "ice block",
+  "boxes": "ice blocks",
+  "crafted": "caught",
+  "rain": "SNOW RAIN",
+  "reward": "penguin bonk reward"
+ },
+ "sfx": {
+  "bad": "sfx/bad.mp3",
+  "bake": "sfx/bake.mp3",
+  "bar_tick": "sfx/bar_tick.mp3",
+  "bonk": "sfx/bonk.mp3",
+  "channel": "sfx/channel.mp3",
+  "collection": "sfx/collection.mp3",
+  "crumbs": "sfx/crumbs.mp3",
+  "gag_bear": "sfx/gag_bear.mp3",
+  "gag_chick": "sfx/gag_chick.mp3",
+  "gag_gull": "sfx/gag_gull.mp3",
+  "gag_puffin": "sfx/gag_puffin.mp3",
+  "gag_seal": "sfx/gag_seal.mp3",
+  "gag_sleigh": "sfx/gag_sleigh.mp3",
+  "gag_slide": "sfx/gag_slide.mp3",
+  "gag_snowball": "sfx/gag_snowball.mp3",
+  "gag_splash": "sfx/gag_splash.mp3",
+  "gift_fly": "sfx/gift_fly.mp3",
+  "grr": "sfx/grr.mp3",
+  "master": "sfx/master.mp3",
+  "pop": "sfx/pop.mp3",
+  "rain_claim": "sfx/rain_claim.mp3",
+  "rain_end": "sfx/rain_end.mp3",
+  "rain_start": "sfx/rain_start.mp3",
+  "reveal_common": "sfx/reveal_common.mp3",
+  "reveal_epic": "sfx/reveal_epic.mp3",
+  "reveal_legendary": "sfx/reveal_legendary.mp3",
+  "reveal_mythic": "sfx/reveal_mythic.mp3",
+  "reveal_rare": "sfx/reveal_rare.mp3",
+  "set": "sfx/set.mp3",
+  "shake": "sfx/shake.mp3",
+  "shiny": "sfx/shiny.mp3"
+ },
+ "version": "1.0.0"
+}

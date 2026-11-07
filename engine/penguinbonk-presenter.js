@@ -1,7 +1,7 @@
-/* EXE PENGUIN BONK · presenter v1.0.0 · form&soul.exe */
+/* EXE PENGUIN BONK · presenter v1.0.1 · form&soul.exe */
 (function () {
   'use strict';
-  const VERSION = '1.0.0';
+  const VERSION = '1.0.1';
   window.BlindBoxPresenters = window.BlindBoxPresenters || {};
   // native pixel scene, scaled x4 onto the 1000x1100 engine canvas
   const NW = 240, NH = 262, SC = 4, OX = Math.round((1000 - NW * SC) / 2), OY = 1100 - NH * SC - 20;
@@ -21,7 +21,7 @@
     tagNew: 'tag_new.png', tagShiny: 'tag_shiny.png', tagXmas: 'tag_xmas.png', pipOn: 'pip_on.png', pipOff: 'pip_off.png',
     chip: 'chip_fish.png', banner: 'ui_banner.png', sign: 'ui_sign.png', panel_frame: 'ui_panel_frame.png', panel_slot: 'ui_panel_slot.png',
     seal: 'gag_seal.png', hole: 'gag_hole.png', gfish: 'gag_fish.png', snowball: 'gag_snowball.png', puffL: 'gag_puffin_l.png', puffR: 'gag_puffin_r.png', puffFlyL: 'gag_puffin_fly_l.png', puffFlyR: 'gag_puffin_fly_r.png', snowman: 'deco_snowman.png', tree: 'deco_tree.png', p_slide: 'pose_slide.png',
-    bear: 'gag_bear.png', chickRun: 'gag_chick_run.png', chickBonk: 'gag_chick_bonk.png', gull: 'gag_gull.png', gullFish: 'gag_gull_fish.png', sleigh: 'gag_sleigh.png',
+    bear: 'gag_bear.png', walrus: 'gag_walrus.png', walrusWow: 'gag_walrus_wow.png', chickRun: 'gag_chick_run.png', chickBonk: 'gag_chick_bonk.png', gull: 'gag_gull.png', gullFish: 'gag_gull_fish.png', sleigh: 'gag_sleigh.png',
     p_run: 'pose_run.png', p_headbutt: 'pose_headbutt.png', p_dizzy: 'pose_dizzy.png', p_angry: 'pose_angry.png',
   };
   const R = {}; const silCache = new Map();
@@ -98,17 +98,16 @@
   const HX = 208, HB = 214, SMX = 17; let busyN = -9, celebN = -9, lastBusy = -99;
   function snowfall(x, c) { x.fillStyle = 'rgba(255,255,255,0.75)'; for (let q = 0; q < 26; q++) { const sp = 6 + rnd(q * 3) * 10, px = (rnd(q) * NW + Math.sin(c * 0.6 + q) * 6) % NW, py = (rnd(q * 7) * 230 + c * sp) % 230; x.fillRect(Math.round(px), Math.round(py), q % 4 ? 1 : 2, q % 4 ? 1 : 2); } }
   function decor(x, xm, c, a) { if (a <= 0.01) return; x.save(); x.globalAlpha = a;
-    const sm = xm && R.tree ? R.tree : R.snowman; if (sm) x.drawImage(sm, SMX - Math.round(sm.width / 2), HB - sm.height);
     if (R.hole) x.drawImage(R.hole, HX - Math.round(R.hole.width / 2), HB - R.hole.height); x.restore();
   }
-  const GAGS = [['seal', 3.4], ['snowball', 1.6], ['puffin', 5.0], ['fish', 1.6], ['slide', 3.0]], GAP = 8.5;
+  const GAGS = [['seal', 3.4], ['snowball', 2.2], ['puffin', 5.0], ['fish', 1.6], ['slide', 3.0]], GAP = 8.5;
   function gagNow(c, xm) { const per = GAP, k = Math.floor(c / per), g = c - k * per; let G = GAGS[k % GAGS.length]; if (xm && G[0] === 'slide') G = ['sleigh', 4.0]; return g < G[1] ? { kind: G[0], u: g, dur: G[1], id: k } : null; }
   const SQ = [], SEEN = new Set(); function emit(k, id) { if (SEEN.has(id)) return; SEEN.add(id); if (SEEN.size > 400) SEEN.clear(); SQ.push(k); }
   function takeSfx() { return SQ.splice(0); }
   function cue(G, at, k) { if (G.u >= at && G.u < at + 0.25) emit(k, k + '|' + G.id + '|' + at); }
   function gag(x, G, BX, BY, BK) { // returns block shake offset
     if (!G) return 0; const u = G.u;
-    if (G.id != null) { const C = { seal: [[0.3, 'gag_seal']], fish: [[0.05, 'gag_splash'], [1.45, 'gag_splash']], snowball: [[0.0, 'gag_snowball']], puffin: [[0.6, 'gag_puffin'], [3.6, 'gag_puffin']], slide: [[0.4, 'gag_slide']], sleigh: [[0.2, 'gag_sleigh']] }[G.kind] || []; C.forEach(([at, k]) => cue(G, at, k)); }
+    if (G.id != null) { const C = { seal: [[0.3, 'gag_seal']], fish: [[0.05, 'gag_splash'], [1.45, 'gag_splash']], snowball: [[0.45, 'gag_snowball']], puffin: [[0.6, 'gag_puffin'], [3.6, 'gag_puffin']], slide: [[0.4, 'gag_slide']], sleigh: [[0.2, 'gag_sleigh']] }[G.kind] || []; C.forEach(([at, k]) => cue(G, at, k)); }
     if (G.kind === 'seal' && R.seal) { const up = u < 0.25 ? u / 0.25 : u > G.dur - 0.25 ? (G.dur - u) / 0.25 : 1, bob = Math.round(Math.sin(u * 6) * 1);
       if (up > 0.3) x.drawImage(R.seal, HX - Math.round(R.seal.width / 2), HB - R.seal.height + Math.round((1 - up) * 3) + (up > 0.9 ? bob : 0));
       if (up > 0.9 && Math.floor(u * 2) % 3 === 1) { x.fillStyle = '#ffffff'; x.fillRect(HX + 8, HB - 18, 1, 3); x.fillRect(HX + 7, HB - 17, 3, 1); } return 0; }
@@ -116,9 +115,14 @@
       x.save(); x.beginPath(); x.rect(0, 0, NW, NH); x.rect(HX - 22, wy, 44, 30); x.clip('evenodd'); x.translate(Math.round(px), Math.round(py)); x.rotate(Math.PI * f); x.drawImage(F, -F.width / 2, -F.height * 0.35); x.restore();
       const rip = (cx, a) => { if (a <= 0) return; x.save(); x.globalAlpha = a; x.fillStyle = '#e6f6ff'; for (let q = 0; q < 10; q++) { const an = q / 10 * Math.PI * 2, r = 3 + (1 - a) * 6; x.fillRect(Math.round(cx + Math.cos(an) * r * 1.6), Math.round(wy + Math.sin(an) * r * 0.6), 1, 1); } x.restore(); };
       rip(wx - 7, 1 - f / 0.25); rip(wx + 7, (f - 0.8) / 0.2 > 0 ? 1 - (f - 0.8) / 0.2 * 0.6 : 0); return 0; }
-    if (G.kind === 'snowball' && R.snowball) { const fl = 0.7, sx = SMX + 10, sy = HB - 30, tx = BX + 12, ty = BY + 40;
-      if (u < fl) { const f = u / fl; x.drawImage(R.snowball, Math.round(sx + (tx - sx) * f - 7), Math.round(sy + (ty - sy) * f - 30 * Math.sin(Math.PI * f) - 7)); return 0; }
-      const v = u - fl; x.fillStyle = '#ffffff'; for (let q = 0; q < 12; q++) { const a = rnd(q) * Math.PI * 2, r = 4 + 18 * v * (0.5 + rnd(q + 5)); x.fillRect(Math.round(tx + Math.cos(a) * r), Math.round(ty + Math.sin(a) * r + 20 * v * v), 2, 2); }
+    if (G.kind === 'snowball' && R.snowball) { const S0 = 0.45, fl = 0.7, sx = SMX + 10, sy = HB - 30, tx = BX + 12, ty = BY + 40, sm = R.snowman;
+      if (sm) { // the snowman only exists for this gag: it rises out of the snow, throws, and sinks back
+        const rise = u < 0.35 ? eo(u / 0.35) : u > G.dur - 0.45 ? 1 - eo((u - (G.dur - 0.45)) / 0.45) : 1, dy = Math.round((1 - rise) * sm.height);
+        if (rise > 0.02) { x.save(); x.beginPath(); x.rect(0, 0, NW, HB); x.clip(); x.drawImage(sm, SMX - Math.round(sm.width / 2), HB - sm.height + dy); x.restore();
+          if (rise < 0.98) { x.fillStyle = '#ffffff'; for (let q = 0; q < 6; q++) x.fillRect(Math.round(SMX - 9 + rnd(q + G.id * 7) * 18), HB - 1 - Math.round(rnd(q + 3) * 3), 2, 1); } } }
+      if (u < S0) return 0;
+      if (u < S0 + fl) { const f = (u - S0) / fl; x.drawImage(R.snowball, Math.round(sx + (tx - sx) * f - 7), Math.round(sy + (ty - sy) * f - 30 * Math.sin(Math.PI * f) - 7)); return 0; }
+      const v = u - S0 - fl; x.fillStyle = '#ffffff'; for (let q = 0; q < 12; q++) { const a = rnd(q) * Math.PI * 2, r = 4 + 18 * v * (0.5 + rnd(q + 5)); x.fillRect(Math.round(tx + Math.cos(a) * r), Math.round(ty + Math.sin(a) * r + 20 * v * v), 2, 2); }
       return v < 0.35 ? Math.round(Math.sin(v * 60) * 2 * (1 - v / 0.35)) : 0; }
     if (G.kind === 'puffin' && R.puffL) { const top = BY + 6, land = BX + BK.width - 22;
       if (u < 1.2) { const f = eo(u / 1.2), im = R.puffFlyL; x.drawImage(im, Math.round(NW + 10 + (land - NW - 10) * f - im.width / 2), Math.round(30 + (top - 30) * f - im.height + Math.sin(u * 30) * 1)); }
@@ -138,6 +142,7 @@
     const x = scene(), T = s.T, t = s.t, CX = NW / 2, FLOOR = 127, xm = T ? T.xmas : xmasOn(s.xmas);
     const BK = xm ? R.xbox : R.box, BX = Math.round((NW - BK.width) / 2), BY = 204 - BK.height;
     if (t == null) { // idle: the block breathes; the shadow of a penguin the channel has not found yet waits inside
+      if (panelN >= drawN - 2) lastBusy = s.clock; // !collection panel open: decor + gags step aside (never half-hidden behind the panel)
       const bob = Math.round(Math.sin(s.clock * 1.6) * 1), da = cl((s.clock - lastBusy) / 0.6), G = celebN >= drawN - 2 || da < 1 ? null : gagNow(s.clock, xm);
       snowfall(x, s.clock); decor(x, xm, s.clock, da);
       const gsh = G && G.kind !== 'slide' && G.kind !== 'puffin' && G.kind !== 'sleigh' ? gag(x, G, BX, BY, BK) : 0;
@@ -153,7 +158,10 @@
     if (rar === 'mythic' && t > T.boom - 0.3) aurora(x, t - (T.boom - 0.3), s.clock);
     lastBusy = s.clock; if (t >= T.boom - 0.3) busyN = drawN;
     snowfall(x, s.clock); decor(x, xm, s.clock, 1 - seg(t, T.boom - 0.15, T.boom + 0.25));
-    if (big && R.bear) { const inn = eo(seg(t, 0.4, 1.1)) * (1 - eo(seg(t, T.end - 1.2, T.end - 0.5))), peek = Math.round(R.bear.width * 0.85 * inn), wob = Math.round(Math.sin(t * 2.2) * 1); x.drawImage(R.bear, NW - peek, 100 + wob); if (t > 1.0) emit('gag_bear', 'bear|' + s.seed + '|' + s.id); }
+    if (big && R.walrus) { // a posh walrus surfaces in the ice hole to judge the big ones (monocle pops off on the last bonk), then fades out with the hole at the reveal
+      const up = eo(seg(t, 0.4, 0.75)), fa = 1 - seg(t, T.boom - 0.15, T.boom + 0.25), W = t > lastB - 0.8 && R.walrusWow ? R.walrusWow : R.walrus, bob = Math.round(Math.sin(t * 2.6) * 1);
+      if (up > 0.3 && fa > 0.01) { x.save(); x.globalAlpha = fa; x.drawImage(W, HX - Math.round(W.width / 2), HB - W.height + Math.round((1 - up) * 4) + (up > 0.9 ? bob : 0)); x.restore(); }
+      if (t > 1.0) emit('gag_bear', 'bear|' + s.seed + '|' + s.id); }
     if (!big && R.chickRun && t < T.boom + 0.2) { const CB = R.chickBonk, CR = R.chickRun, headTop = 204 - CB.height, headBot = 204 - Math.round(CB.height * 0.4);
       const contact = BX + shake + lean + edgeX(BK, 'left', headTop - BY, headBot - BY) - edgeX(CB, 'right', 0, Math.round(CB.height * 0.6)) - 1 + 1; // chick's forehead meets the ice
       const restX = contact - 10; let pose = CR, ox = restX, star = false, hit = -1;

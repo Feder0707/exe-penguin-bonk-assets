@@ -1,7 +1,7 @@
-/* EXE PENGUIN BONK · engine v1.0.0 · form&soul.exe */
+/* EXE PENGUIN BONK · engine v1.0.1 · form&soul.exe */
 (function () {
   'use strict';
-  const VERSION = '1.0.0';
+  const VERSION = '1.0.1';
   const RAR = ['common', 'rare', 'epic', 'legendary', 'mythic'];
   const RCOL = { common: '#7f97b3', rare: '#3f9fe0', epic: '#9a5ff0', legendary: '#f0b030', mythic: '#ff5fa2' };
   const RLABEL = { common: 'COMMON', rare: 'RARE', epic: 'EPIC', legendary: 'LEGENDARY', mythic: 'MYTHIC' };

@@ -160,7 +160,10 @@
     snowfall(x, s.clock); decor(x, xm, s.clock, 1 - seg(t, T.boom - 0.15, T.boom + 0.25));
     if (big && R.walrus) { // a posh walrus surfaces in the ice hole to judge the big ones (monocle pops off on the last bonk), then fades out with the hole at the reveal
       const up = eo(seg(t, 0.4, 0.75)), fa = 1 - seg(t, T.boom - 0.15, T.boom + 0.25), W = t > lastB - 0.8 && R.walrusWow ? R.walrusWow : R.walrus, bob = Math.round(Math.sin(t * 2.6) * 1);
-      if (up > 0.3 && fa > 0.01) { x.save(); x.globalAlpha = fa; x.drawImage(W, HX - Math.round(W.width / 2), HB - W.height + Math.round((1 - up) * 4) + (up > 0.9 ? bob : 0)); x.restore(); }
+      if (up > 0.3 && fa > 0.01 && R.hole) { // the walrus body rises out of the scene's own hole: back rim behind it, front rim + water redrawn over its lower edge (one hole, never two)
+        const hw = R.hole.width, hh = R.hole.height, hx = HX - Math.round(hw / 2), hy = HB - hh, lip = 14;
+        x.save(); x.globalAlpha = fa; x.drawImage(W, HX - Math.round(W.width / 2), hy + 17 - W.height + Math.round((1 - up) * 6) + (up > 0.9 ? bob : 0));
+        x.drawImage(R.hole, 0, lip, hw, hh - lip, hx, hy + lip, hw, hh - lip); x.restore(); }
       if (t > 1.0) emit('gag_bear', 'bear|' + s.seed + '|' + s.id); }
     if (!big && R.chickRun && t < T.boom + 0.2) { const CB = R.chickBonk, CR = R.chickRun, headTop = 204 - CB.height, headBot = 204 - Math.round(CB.height * 0.4);
       const contact = BX + shake + lean + edgeX(BK, 'left', headTop - BY, headBot - BY) - edgeX(CB, 'right', 0, Math.round(CB.height * 0.6)) - 1 + 1; // chick's forehead meets the ice

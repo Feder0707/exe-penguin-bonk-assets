@@ -1,6 +1,6 @@
 # EXE Penguin Bonk · hosted files
 
-Hosted files for the **EXE Penguin Bonk** StreamElements widget by form&soul.exe (v1.0.0).
+Hosted files for the **EXE Penguin Bonk** StreamElements widget by form&soul.exe (v1.0.1).
 
 - `engine/penguinbonk-engine.js` — widget engine
 - `engine/penguinbonk-presenter.js` — pixel-art presentation (ice block, bonks, plaque, colony bar, gags, collection shelf)

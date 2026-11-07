@@ -97,6 +97,10 @@
   // ---- decor + micro gags (Gemini art): snowman / tree, ice hole with a seal, a fish, a puffin, snowballs, a belly-slider, snowfall
   const HX = 208, HB = 214, SMX = 17; let busyN = -9, celebN = -9, lastBusy = -99;
   function snowfall(x, c) { x.fillStyle = 'rgba(255,255,255,0.75)'; for (let q = 0; q < 26; q++) { const sp = 6 + rnd(q * 3) * 10, px = (rnd(q) * NW + Math.sin(c * 0.6 + q) * 6) % NW, py = (rnd(q * 7) * 230 + c * sp) % 230; x.fillRect(Math.round(px), Math.round(py), q % 4 ? 1 : 2, q % 4 ? 1 : 2); } }
+  function fromHole(x, im, dy) { // a body rises out of the scene's own ice hole: back rim behind it, front rim + water redrawn over its lower edge (always one hole)
+    if (!R.hole) return; const hw = R.hole.width, hh = R.hole.height, hx = HX - Math.round(hw / 2), hy = HB - hh, lip = 14;
+    if (im) x.drawImage(im, HX - Math.round(im.width / 2), hy + 17 - im.height + dy);
+    x.drawImage(R.hole, 0, lip, hw, hh - lip, hx, hy + lip, hw, hh - lip); }
   function decor(x, xm, c, a) { if (a <= 0.01) return; x.save(); x.globalAlpha = a;
     if (R.hole) x.drawImage(R.hole, HX - Math.round(R.hole.width / 2), HB - R.hole.height); x.restore();
   }
@@ -109,10 +113,10 @@
     if (!G) return 0; const u = G.u;
     if (G.id != null) { const C = { seal: [[0.3, 'gag_seal']], fish: [[0.05, 'gag_splash'], [1.45, 'gag_splash']], snowball: [[0.45, 'gag_snowball']], puffin: [[0.6, 'gag_puffin'], [3.6, 'gag_puffin']], slide: [[0.4, 'gag_slide']], sleigh: [[0.2, 'gag_sleigh']] }[G.kind] || []; C.forEach(([at, k]) => cue(G, at, k)); }
     if (G.kind === 'seal' && R.seal) { const up = u < 0.25 ? u / 0.25 : u > G.dur - 0.25 ? (G.dur - u) / 0.25 : 1, bob = Math.round(Math.sin(u * 6) * 1);
-      if (up > 0.3) x.drawImage(R.seal, HX - Math.round(R.seal.width / 2), HB - R.seal.height + Math.round((1 - up) * 3) + (up > 0.9 ? bob : 0));
+      if (up > 0.3) fromHole(x, R.seal, Math.round((1 - up) * 6) + (up > 0.9 ? bob : 0));
       if (up > 0.9 && Math.floor(u * 2) % 3 === 1) { x.fillStyle = '#ffffff'; x.fillRect(HX + 8, HB - 18, 1, 3); x.fillRect(HX + 7, HB - 17, 3, 1); } return 0; }
     if (G.kind === 'fish' && R.fishBody) { const F = R.fishBody, f = u / G.dur, wx = HX, wy = HB - 15, px = wx - 7 + 14 * f, py = wy - 40 * Math.sin(Math.PI * f);
-      x.save(); x.beginPath(); x.rect(0, 0, NW, NH); x.rect(HX - 22, wy, 44, 30); x.clip('evenodd'); x.translate(Math.round(px), Math.round(py)); x.rotate(Math.PI * f); x.drawImage(F, -F.width / 2, -F.height * 0.35); x.restore();
+      x.save(); x.translate(Math.round(px), Math.round(py)); x.rotate(Math.PI * f); x.drawImage(F, -F.width / 2, -F.height * 0.35); x.restore(); fromHole(x, null, 0); // whole fish, only the front rim + water cover it as it dives
       const rip = (cx, a) => { if (a <= 0) return; x.save(); x.globalAlpha = a; x.fillStyle = '#e6f6ff'; for (let q = 0; q < 10; q++) { const an = q / 10 * Math.PI * 2, r = 3 + (1 - a) * 6; x.fillRect(Math.round(cx + Math.cos(an) * r * 1.6), Math.round(wy + Math.sin(an) * r * 0.6), 1, 1); } x.restore(); };
       rip(wx - 7, 1 - f / 0.25); rip(wx + 7, (f - 0.8) / 0.2 > 0 ? 1 - (f - 0.8) / 0.2 * 0.6 : 0); return 0; }
     if (G.kind === 'snowball' && R.snowball) { const S0 = 0.45, fl = 0.7, sx = SMX + 10, sy = HB - 30, tx = BX + 12, ty = BY + 40, sm = R.snowman;
@@ -161,9 +165,7 @@
     if (big && R.walrus) { // a posh walrus surfaces in the ice hole to judge the big ones (monocle pops off on the last bonk), then fades out with the hole at the reveal
       const up = eo(seg(t, 0.4, 0.75)), fa = 1 - seg(t, T.boom - 0.15, T.boom + 0.25), W = t > lastB - 0.8 && R.walrusWow ? R.walrusWow : R.walrus, bob = Math.round(Math.sin(t * 2.6) * 1);
       if (up > 0.3 && fa > 0.01 && R.hole) { // the walrus body rises out of the scene's own hole: back rim behind it, front rim + water redrawn over its lower edge (one hole, never two)
-        const hw = R.hole.width, hh = R.hole.height, hx = HX - Math.round(hw / 2), hy = HB - hh, lip = 14;
-        x.save(); x.globalAlpha = fa; x.drawImage(W, HX - Math.round(W.width / 2), hy + 17 - W.height + Math.round((1 - up) * 6) + (up > 0.9 ? bob : 0));
-        x.drawImage(R.hole, 0, lip, hw, hh - lip, hx, hy + lip, hw, hh - lip); x.restore(); }
+        x.save(); x.globalAlpha = fa; fromHole(x, W, Math.round((1 - up) * 6) + (up > 0.9 ? bob : 0)); x.restore(); }
       if (t > 1.0) emit('gag_bear', 'bear|' + s.seed + '|' + s.id); }
     if (!big && R.chickRun && t < T.boom + 0.2) { const CB = R.chickBonk, CR = R.chickRun, headTop = 204 - CB.height, headBot = 204 - Math.round(CB.height * 0.4);
       const contact = BX + shake + lean + edgeX(BK, 'left', headTop - BY, headBot - BY) - edgeX(CB, 'right', 0, Math.round(CB.height * 0.6)) - 1 + 1; // chick's forehead meets the ice

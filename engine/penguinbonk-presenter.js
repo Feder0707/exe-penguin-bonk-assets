@@ -1,7 +1,7 @@
-/* EXE PENGUIN BONK · presenter v1.0.1 · form&soul.exe */
+/* EXE PENGUIN BONK · presenter v1.0.2 · form&soul.exe */
 (function () {
   'use strict';
-  const VERSION = '1.0.1';
+  const VERSION = '1.0.2';
   window.BlindBoxPresenters = window.BlindBoxPresenters || {};
   // native pixel scene, scaled x4 onto the 1000x1100 engine canvas
   const NW = 240, NH = 262, SC = 4, OX = Math.round((1000 - NW * SC) / 2), OY = 1100 - NH * SC - 20;
@@ -64,11 +64,11 @@
   function signText(x, lines, cx, y, maxw) { lines.forEach((l, k) => { const f = fit(x, l, 8, maxw, 700); txt(x, l, cx, y + k * 10, f, k ? '#ffe2b0' : '#fff6dc', 700, 'center'); }); }
   function signHint(x, s, a) { if (a <= 0.01) return; const G = R.sign, gw = G.width * 2, gh = G.height * 2, gx = Math.round((NW - gw) / 2), sway = Math.round(Math.sin(Date.now() / 700) * 0), gy = 4 + sway;
     const up = s.toUpperCase(), m = up.match(/^(TYPE \S+)\s+(.*)$/), lines = m ? [m[1], m[2]] : [up];
-    x.save(); x.globalAlpha = a; x.drawImage(G, gx, gy, gw, gh); signText(x, lines, NW / 2, gy + (lines.length > 1 ? 18 : 23), gw - 54); x.restore(); }
+    x.save(); x.globalAlpha = a; x.drawImage(G, gx, gy, gw, gh); signText(x, lines, NW / 2, gy + (lines.length > 1 ? 25 : 30), gw - 54); x.restore(); }
   function drawToast(ctx, text, age, k) { // "not enough fish" & co. on the hanging wooden sign
     if (busyN >= drawN - 1) { const m = text.match(/:\s*([^·]+)/); return labelPill(ctx, (m ? m[1] : text).trim().toUpperCase(), cl(age / 0.2) * (1 - cl((age - 3.6) / 0.4))); }
     const x = scene(), a = cl(age / 0.2) * (1 - cl((age - 3.6) / 0.4)), G = R.sign, gw = G.width * 2, gh = G.height * 2, gx = Math.round((NW - gw) / 2), drop = Math.round(-12 * (1 - eb(cl(age / 0.4)))), gy = 64 + drop - k * 60;
-    const up = text.toUpperCase().replace(/\s+·\s+/, '|'), lines = up.split('|'); x.save(); x.globalAlpha = a; x.drawImage(G, gx, gy, gw, gh); signText(x, lines, NW / 2, gy + (lines.length > 1 ? 18 : 23), gw - 54); x.restore();
+    const up = text.toUpperCase().replace(/\s+·\s+/, '|'), lines = up.split('|'); x.save(); x.globalAlpha = a; x.drawImage(G, gx, gy, gw, gh); signText(x, lines, NW / 2, gy + (lines.length > 1 ? 25 : 30), gw - 54); x.restore();
     ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(x.canvas, OX, OY, NW * SC, NH * SC); ctx.restore(); }
   function queuePill(x, q) { if (!q) return; const s = '+' + q + ' IN LINE'; x.font = `700 8px ${FONT}`; const w = x.measureText(s).width; x.fillStyle = 'rgba(10,18,32,0.7)'; x.fillRect(NW - w - 9, 4, w + 8, 12); txt(x, s, NW - 5, 6, 8, '#ffffff', 700, 'right'); }
 
